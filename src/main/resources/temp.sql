@@ -1,0 +1,54 @@
+CREATE TABLE cliente (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(100),
+  cpf VARCHAR(11)
+);
+CREATE TABLE endereco(
+ id INTEGER PRIMARY KEY AUTO_INCREMENT,
+ rua VARCHAR(100),
+ numero INTEGER,
+ bairro VARCHAR(100),
+ cep VARCHAR(8),
+ cidade VARCHAR(100),
+ uf CHAR(2),
+ cliente_id INTEGER REFERENCES cliente (id),
+);
+
+CREATE TABLE produto (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  descricao VARCHAR(100),
+  preco_unitario NUMERIC(20,2)
+);
+
+CREATE TABLE categoria(
+
+ id INTEGER PRIMARY KEY AUTO_INCREMENT,
+ nome VARCHAR(100),
+ imgPath VARCHAR(200)
+);
+
+CREATE TABLE fornecedor(
+ id INTEGER PRIMARY KEY AUTO_INCREMENT,
+ nome VARCHAR(100),
+ cnpj VARCHAR(14),
+ telefone VARCHAR(16)
+);
+
+CREATE TABLE marca(
+ id INTEGER PRIMARY KEY AUTO_INCREMENT,
+ nome VARCHAR(100)
+);
+
+CREATE TABLE pedido (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  cliente_id INTEGER REFERENCES cliente (id),
+  data_pedido TIMESTAMP,
+  total NUMERIC(20,2)
+);
+
+CREATE TABLE item_pedido (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  pedido_id INTEGER REFERENCES pedido (id),
+  produto_id INTEGER REFERENCES produto (id),
+  quantidade INTEGER
+);

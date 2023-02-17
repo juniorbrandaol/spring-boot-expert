@@ -1,0 +1,128 @@
+package com.eblj.curse.data.domain.config;
+
+import com.eblj.curse.data.domain.entities.Cliente;
+import com.eblj.curse.data.domain.entities.ItemPedido;
+import com.eblj.curse.data.domain.entities.Pedido;
+import com.eblj.curse.data.domain.entities.Produto;
+import com.eblj.curse.data.domain.repository.ClienteRepository;
+import com.eblj.curse.data.domain.repository.ItemPedidoRepository;
+import com.eblj.curse.data.domain.repository.PedidoRepository;
+import com.eblj.curse.data.domain.repository.ProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+
+
+@Configuration
+public class Instantiation implements CommandLineRunner {
+
+    @Autowired
+    ClienteRepository clienteRepository;
+    @Autowired
+    ProdutoRepository produtoRepository ;
+    @Autowired
+    PedidoRepository pedidoRepository;
+    @Autowired
+    ItemPedidoRepository itemPedidoRepository;
+
+    LocalDate d01 = LocalDate.now();
+    Cliente cliente1;
+    Cliente cliente2;
+    Produto produto1;
+    Produto produto2;
+    Produto produto3;
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        clienteRepository.deleteAll();
+        produtoRepository.deleteAll();
+        pedidoRepository.deleteAll();
+        itemPedidoRepository.deleteAll();
+
+        System.out.println("Salvando clientes");
+        cliente1 = new Cliente(null,"Junior Brandão L");
+        //clienteRepository.save(cliente1);
+
+        cliente2 = new Cliente(null,"Keylla");
+        //clienteRepository.save(cliente2);
+
+        //posso savar todos de uma vez usando o saveAll, invez de salvar um por um
+        clienteRepository.saveAll(Arrays.asList(cliente1,cliente2));
+
+        List<Cliente> lista = clienteRepository.findAll();
+        lista.forEach(System.out::println);
+
+        System.out.println("Se existe cliente");
+        boolean existe = clienteRepository.existsByNomeIgnoreCase("keylla");
+        System.out.println(existe);
+        System.out.println();
+
+        System.out.println("Buscando cliente por nome");
+        clienteRepository.findByNomeLikeIgnoreCase("Key").forEach(System.out::println);
+
+        List<Cliente> newList = clienteRepository.procurarPorNome("keylla");
+        newList.forEach(System.out::println);
+
+    //    System.out.println("Atualizando clientes");
+   //     lista.forEach( x ->{
+   //         x.setNome(x.getNome()+ " atualizado");
+   //         clienteRepository.save(x);//tanto salva como atualiza com o mesmo método
+   //     });
+
+    //    lista = clienteRepository.findAll();
+    //    lista.forEach(System.out::println);
+
+
+
+        System.out.println();
+    //    System.out.println("Deletando clientes");
+    //    clienteRepository.findAll().forEach(c ->{
+     //       clienteRepository.delete(c);
+     //   });
+     //   lista = clienteRepository.findAll();
+    //    if(lista.isEmpty()){
+    //        System.out.println("Nenhum cliente na lista");
+    //    }else{
+    //        lista.forEach(System.out::println);
+    //    }
+
+
+        System.out.println();
+        System.out.println("========================================");
+
+         produto1 = new Produto(null,"Gauaraná Antartica",BigDecimal.valueOf (7.90));
+         produto2 = new Produto(null,"Coca-Cola", BigDecimal.valueOf(6.50));
+         produto3 = new Produto(null,"Fanta Laranja",BigDecimal.valueOf(6.30));
+        produtoRepository.saveAll(Arrays.asList(produto1,produto2,produto3));
+
+        salvarPedido();
+
+
+
+     //   Cliente cli = clienteRepository.findClienteFetchPedido(cliente1.getId());
+     //   System.out.println(cli);
+       // System.out.println(cli.getPedidos());
+
+        //outra forma
+        pedidoRepository.findByCliente(cliente1).forEach(System.out::println);
+
+    }
+    @Transactionalpublic void salvarPedido(){
+
+        Pedido pedido1 = new Pedido(null,cliente1,d01,BigDecimal.valueOf(14.40));
+        Pedido pedido2 = new Pedido(null,cliente2,d01,BigDecimal.valueOf(6.30));
+        pedidoRepository.saveAll(Arrays.asList(pedido1,pedido2));
+
+        ItemPedido item1 = new ItemPedido(null,pedido1,produto1,1);
+        ItemPedido item2 = new ItemPedido(null,pedido1,produto2,1);
+        ItemPedido item3 = new ItemPedido(null,pedido2,produto3,1);
+        itemPedidoRepository.saveAll(Arrays.asList(item1,item2));
+        itemPedidoRepository.save(item3);
+    }
+}
