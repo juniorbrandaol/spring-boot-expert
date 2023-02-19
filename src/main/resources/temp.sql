@@ -39,6 +39,13 @@ CREATE TABLE marca(
  nome VARCHAR(100)
 );
 
+CREATE TABLE cidade(
+ id INTEGER PRIMARY KEY, AUTO_INCREMENT,
+ nome VARCHAR(100),
+ uf VARCHAR(2),
+ codigo INTEGER
+);
+
 CREATE TABLE pedido (
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   cliente_id INTEGER REFERENCES cliente (id),
@@ -51,4 +58,13 @@ CREATE TABLE item_pedido (
   pedido_id INTEGER REFERENCES pedido (id),
   produto_id INTEGER REFERENCES produto (id),
   quantidade INTEGER
+);
+
+CREATE TABLE cartao(
+ id INTEGER PRIMARY KEY AUTO_INCREMENT,
+ numero VARCHAR(16),
+ tipo VARCHAR(12),
+ bandeira VARCHAR(25)
+ validade VARCHAR(6),
+ cvc INTEGER
 );
