@@ -50,6 +50,7 @@ CREATE TABLE pedido (
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   cliente_id INTEGER REFERENCES cliente (id),
   data_pedido TIMESTAMP,
+  status VARCHAR(20),
   total NUMERIC(20,2)
 );
 
@@ -67,4 +68,10 @@ CREATE TABLE cartao(
  bandeira VARCHAR(25)
  validade VARCHAR(6),
  cvc INTEGER
+);
+
+CREATE TABLE estoque(
+ id INTEGER PRIMARY KEY AUTO_INCREMENT,
+ produto VARCHAR(100),
+ quantidade INTEGER
 );

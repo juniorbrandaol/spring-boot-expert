@@ -5,8 +5,7 @@ public class ItemPedidoDTO {
     private Integer produto;
     private Integer quantidade;
 
-    public ItemPedidoDTO(){
-    }
+    public ItemPedidoDTO(){}
 
     public ItemPedidoDTO(Integer produto, Integer quantidade) {
         this.produto = produto;
@@ -27,5 +26,13 @@ public class ItemPedidoDTO {
 
     public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemPedidoDTO{" +
+                "produto=" + produto +
+                ", quantidade=" + quantidade +
+                '}';
     }
 }

@@ -2,6 +2,11 @@ package com.eblj.curse.data.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -15,9 +20,13 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")//opcional, já que o nome do atributo é o mesmo da classe
     private Integer id;
-    @Column( nullable = false)
+    @Column(name = "nome",nullable = false)
+    @NotEmpty(message = "O campo nome é obrigatório.")
+    @Length(min = 3, max = 45, message = "O nome deverá ter no mínimo {min} e no máximo {max} caracteres")
     private String nome;
     @Column(name="cpf", nullable = false,length = 11 , unique = true)
+    @NotBlank(message = "O campo cpf é obrigatório")
+    @CPF(message = "CPF não é válido.")
     private String cpf;
 
     @OneToMany(mappedBy = "cliente",fetch = FetchType.LAZY)

@@ -2,6 +2,7 @@ package com.eblj.curse.data.rest.controller;
 
 import com.eblj.curse.data.domain.entities.Produto;
 import com.eblj.curse.data.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto save(@RequestBody Produto produto){
+    public Produto save(@RequestBody @Valid Produto produto){
        return service.salvar(produto);
     }
 
@@ -48,7 +49,7 @@ public class ProdutoController {
 
     @PutMapping("{codigoProduto}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable("codigoProduto") Integer id,@RequestBody Produto produto){
+    public void update(@PathVariable("codigoProduto") @Valid Integer id,@RequestBody Produto produto){
        service.update(id,produto);
     }
 
