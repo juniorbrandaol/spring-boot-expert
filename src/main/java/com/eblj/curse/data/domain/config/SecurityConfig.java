@@ -26,7 +26,7 @@ public class SecurityConfig  {
     private JwtService jwtService;
     @Bean
     public PasswordEncoder passwordEncoder(){
-       return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
     @Bean
     public OncePerRequestFilter jwtFilter(){
@@ -37,29 +37,29 @@ public class SecurityConfig  {
         aut
                 .userDetailsService(usuarioServiceImpl)
                 .passwordEncoder(passwordEncoder());
-         return aut.getDefaultUserDetailsService();
-        }
+        return aut.getDefaultUserDetailsService();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-         http
+        http
                 //se não vai usar uma aplicação web, apenas rest
                 .csrf().disable()
-                .authorizeHttpRequests()
-                   .requestMatchers("/api/clientes/**").hasRole("USER")
-                   .requestMatchers("/api/produto/**").hasRole("ADMIN")
-                   .requestMatchers("/api/pedido/**").hasRole("USER")
-                   .requestMatchers("/api/cartao/**").hasRole("USER")
-                   .requestMatchers("/api/categoria/**").hasRole("USER")
-                   .requestMatchers("/api/endereco/**").hasRole("USER")
-                   .requestMatchers("/api/estoque/**").hasRole("ADMIN")
-                   .requestMatchers("/api/fornecedor/**").hasRole("USER")
-                   .requestMatchers("/api/marca/**").hasRole("USER")
-                   .requestMatchers("/api/cidade/**").hasRole("USER")
-                   .requestMatchers(HttpMethod.POST,"/api/usuarios/**").permitAll()
-                   .anyRequest().authenticated()//garante que se esquecer de mapear outra api, o minimo de autenticação
+                .authorizeRequests()
+                .requestMatchers("/api/clientes/**").hasRole("USER")
+                .requestMatchers("/api/produto/**").hasRole("ADMIN")
+                .requestMatchers("/api/pedido/**").hasRole("USER")
+                .requestMatchers("/api/cartao/**").hasRole("USER")
+                .requestMatchers("/api/categoria/**").hasRole("USER")
+                .requestMatchers("/api/endereco/**").hasRole("USER")
+                .requestMatchers("/api/estoque/**").hasRole("ADMIN")
+                .requestMatchers("/api/fornecedor/**").hasRole("USER")
+                .requestMatchers("/api/marca/**").hasRole("USER")
+                .requestMatchers("/api/cidade/**").hasRole("USER")
+                .requestMatchers(HttpMethod.POST,"/api/usuarios/**").permitAll()
+                .anyRequest().authenticated()//garante que se esquecer de mapear outra api, o minimo de autenticação
                 .and()
-                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 //.httpBasic();
                 //.formLogin();
                 .and()
@@ -67,6 +67,7 @@ public class SecurityConfig  {
         return http.build();
     }
 
+    
 
 
 }

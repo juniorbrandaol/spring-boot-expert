@@ -4,8 +4,6 @@ import com.eblj.curse.data.Application;
 import com.eblj.curse.data.domain.entities.Usuario;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -57,6 +55,7 @@ public class JwtService {
     public  String obterLoginUsuario(String token) throws ExpiredJwtException{
         return (String) obterClaims(token).getSubject();
     }
+    /*
     public static  void main(String[] args) {
         ConfigurableApplicationContext contex = SpringApplication.run(Application.class);
         JwtService service = contex.getBean(JwtService.class);
@@ -69,5 +68,5 @@ public class JwtService {
         System.out.println("O token está :" +isToken);
         System.out.println(service.obterLoginUsuario(token));
     }
-
+*/
 }

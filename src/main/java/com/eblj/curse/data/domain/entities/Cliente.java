@@ -17,7 +17,7 @@ public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")//opcional, já que o nome do atributo é o mesmo da classe
     private Integer id;
     @Column(name = "nome",nullable = false)
