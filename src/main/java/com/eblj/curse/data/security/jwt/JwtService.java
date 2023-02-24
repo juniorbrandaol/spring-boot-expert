@@ -1,15 +1,20 @@
 package com.eblj.curse.data.security.jwt;
 
-import com.eblj.curse.data.Application;
+
 import com.eblj.curse.data.domain.entities.Usuario;
-import io.jsonwebtoken.*;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
+
 @Service
 public class JwtService {
     @Value("${security.jwt.expiracao}")
@@ -55,18 +60,5 @@ public class JwtService {
     public  String obterLoginUsuario(String token) throws ExpiredJwtException{
         return (String) obterClaims(token).getSubject();
     }
-    /*
-    public static  void main(String[] args) {
-        ConfigurableApplicationContext contex = SpringApplication.run(Application.class);
-        JwtService service = contex.getBean(JwtService.class);
-        Usuario usuario= new Usuario();
-        usuario.setLogin("keylla");
-        String token = service.gerarToken(usuario);
-        System.out.println(token);
-        boolean isToken = service.tokenValido(token);
 
-        System.out.println("O token está :" +isToken);
-        System.out.println(service.obterLoginUsuario(token));
-    }
-*/
 }

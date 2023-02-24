@@ -10,18 +10,26 @@
 	</parent>
 	<groupId>com.eblj</groupId>
 	<artifactId>curse.data</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>curse.data</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
 	<dependencies>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,26 +88,10 @@
 			<version>0.11.1</version>
 			<scope>runtime</scope>
 		</dependency>
-		<!--
-        swagger
-        -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger2</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-		<!--
-         swagger
-         -->
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>3.0.0</version>
-		</dependency>
 
 		<dependency>
 			<groupId>io.springfox</groupId>
-			<artifactId>springfox-boot-starter</artifactId>
+			<artifactId>springfox-swagger-ui</artifactId>
 			<version>3.0.0</version>
 		</dependency>
 
@@ -109,6 +101,8 @@
 			<version>3.0-alpha-1</version>
 		</dependency>
 
+
+
 	</dependencies>
 
 	<build>
@@ -117,6 +111,8 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+
 		</plugins>
 	</build>
 
